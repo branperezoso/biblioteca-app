@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('loan_details', function (Blueprint $table) {
             $table->id();
+            $table->smallInteger('quantity');
             $table->foreignId('loan_id')->constrained('loans');
             $table->foreignId('book_id')->constrained('books');
 

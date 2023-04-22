@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('barcode', 20)->unique();
             $table->text('title');
             $table->string('author', 500);
-            $table->unsignedTinyInteger('edition');
+            $table->string('edition', 50);
             $table->string('area', 100);
             $table->string('publishing_house', 200);
             $table->string('comment', 200)->nullable();
