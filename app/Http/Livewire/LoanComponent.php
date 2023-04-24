@@ -106,7 +106,7 @@ class LoanComponent extends Component
         $key = 'id' . $id;
         $newbook2 = $this->books[$key];
         $book1 = Book::find($id);
-     
+
         if ($this->books[$key]['quantity_loan'] < $book1->quantity) {
             $this->books[$key]['quantity_loan']++;
             $this->emit('book-qty', "Ejemplar icrementado: " . $newbook2['barcode']);
@@ -125,7 +125,15 @@ class LoanComponent extends Component
     }
     public function saveLoan()
     {
-        dd($this->semester . ' ' . $this->group.' ' . $this->return_date);
+        if ($this->semester == 0) {
+            $this->emit('book-error', "Seleccione un semestre");
+            return;
+        }
+        if ($this->group == 0) {
+            $this->emit('book-error', "Seleccione un grupo");
+            return;
+        }
+        dd($this->semester . ' ' . $this->group . ' ' . $this->return_date);
         /* DB::beginTransaction();
         try {
             //guardar venta
