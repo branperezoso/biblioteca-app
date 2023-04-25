@@ -2,9 +2,12 @@
     <div class="row justify-content-center">
         {{-- datos generales del estudiante --}}
         @include('livewire.loan.partials.studentdetails')
-        
+
         {{-- carrito de libros --}}
         @include('livewire.loan.partials.bookslist')
+
+        {{-- devoluciones --}}
+        @include('livewire.loan.partials.returns')
     </div>
 </div>
 <script src="{{ asset('js/onscan.js') }}"></script>

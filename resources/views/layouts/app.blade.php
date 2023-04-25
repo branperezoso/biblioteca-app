@@ -41,10 +41,10 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('prestamos') }}">Préstamo</a>
+                            <a class="nav-link {{ request()->is('prestamos') ? 'border border-success rounded-pill active' : '' }} " href="{{ route('prestamos') }}">Préstamo</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('prestamos') }}">Devolución</a>
+                            {{-- <a class="nav-link" href="{{ route('prestamos') }}">Devolución</a> --}}
                         </li>
                     </ul>
 

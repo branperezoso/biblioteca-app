@@ -9,6 +9,7 @@ use App\Models\Student;
 use Livewire\Component;
 use DB;
 use Exception;
+use Illuminate\Support\Facades\Auth;
 //php artisan make:livewire loanComponent
 class LoanComponent extends Component
 {
@@ -126,15 +127,55 @@ class LoanComponent extends Component
     public function saveLoan()
     {
         if ($this->semester == 0) {
-            $this->emit('book-error', "Seleccione un semestre");
+            $this->emit('book-error', "Seleccione un grado");
             return;
         }
         if ($this->group == 0) {
             $this->emit('book-error', "Seleccione un grupo");
             return;
         }
-        dd($this->semester . ' ' . $this->group . ' ' . $this->return_date);
-        /* DB::beginTransaction();
+        //dd($this->semester . ' ' . $this->group . ' ' . $this->return_date);
+        if($this->return_date==Date('Y-m-d')){
+            $this->emit('book-error', "Seleccione una fecha de devolución");
+            return;
+        }
+        if ($this->ncontrol == '') {
+            $this->emit('book-error', "Proporcione número de control");
+            return;
+        }
+        DB::beginTransaction();
+        try {
+            //guardar prestamo
+            $loan = Loan::create([
+                'semester' => $this->semester, 'group' => $this->group, 'return_date' => $this->return_date,
+                'student_id' => $this->student->id, 'user_id' => Auth::user()->id
+            ]);
+            //guardar detalles_prestamo
+            if ($loan) {
+                foreach($this->books as $b){
+                    LoanDetail::create([
+                        'quantity'=>$b['quantity_loan'],
+                        'loan_id'=>$loan->id,
+                        'book_id'=>$b['id']
+                    ]);
+                    //actualizar quantity de libros
+                    $book = Book::find($b['id']);
+                    $book->quantity = $book->quantity-$b['quantity_loan'];
+                    $book->save();
+                }
+                DB::commit();
+                $this->books = [];
+                $this->emit('save-ok', "Préstamo registrado con éxito");
+                //imprimir utilizando impresora
+                $this->emit('print-ticket', $this->getJsonBase64($loan));
+            } else {
+                DB::rollback();
+            }
+        } catch (Exception $e) {
+            DB::rollback();
+            $this->emit('book-error', $e->getMessage());
+        }
+        /*
         try {
             //guardar venta
             $sale = Sale::create([
@@ -176,6 +217,7 @@ class LoanComponent extends Component
             $this->emit('print-ticket', $this->getJsonBase64($sale));
 
             $this->books = [];
+
         } catch (Exception $e) {
             DB::rollback();
             $this->emit('sale-error', $e->getMessage());
@@ -225,6 +267,10 @@ class LoanComponent extends Component
         //codificar en base64
         $crypted = base64_encode(gzdeflate($json));
         return $crypted;
+    }
+    public function returnBooks()
+    {
+        
     }
 }
 //https://styde.net/introduccion-a-la-clase-collection-de-laravel/

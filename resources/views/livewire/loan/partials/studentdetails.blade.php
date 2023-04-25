@@ -2,7 +2,8 @@
     <div class="card">
         <div class="card-header">
             <h4 class="card-title">
-                <b>{{ $componentName }} | {{ $pageTitle }}</b>
+                {{-- <b>{{ $componentName }} | {{ $pageTitle }}</b> --}}
+                <b> {{ $pageTitle }}</b>
             </h4>
             {{-- Registro de prestamos y devoluciones --}}
         </div>
