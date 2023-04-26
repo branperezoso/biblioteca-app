@@ -21,7 +21,7 @@ class LoanComponent extends Component
     public $semester;
     public $group;
     public $return_date;
-    public $id_ticket;
+    public $ticket_id;
 
     public function mount()
     {
@@ -35,7 +35,7 @@ class LoanComponent extends Component
         $this->semester = 0;
         $this->group = 0;
         $this->return_date = date('Y-m-d');
-        $this->id_ticket = '';
+        $this->ticket_id = '';
     }
     public function render()
     {
@@ -237,11 +237,11 @@ class LoanComponent extends Component
     }
     public function returnBooks()
     {
-        if ($this->id_ticket == '') {
+        if ($this->ticket_id == '') {
             $this->emit('book-error', "Proporcione # ticket");
             return;
         }
-        $loan = Loan::find($this->id_ticket);
+        $loan = Loan::find($this->ticket_id);
         if ($loan) {
             try {
                 DB::beginTransaction();
