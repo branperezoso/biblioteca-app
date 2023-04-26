@@ -22,4 +22,4 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('prestamos', LoanComponent::class)->name('prestamos');
+Route::get('prestamos', LoanComponent::class)->name('prestamos')->middleware('auth');

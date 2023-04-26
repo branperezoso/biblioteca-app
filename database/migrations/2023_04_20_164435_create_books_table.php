@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('area', 100);
             $table->string('publishing_house', 200);
             $table->string('comment', 200)->nullable();
-            $table->unsignedSmallInteger('quantity')->nullable();
+            $table->unsignedSmallInteger('quantity');
             $table->string('origin', 100)->nullable();
             $table->timestamps();
         });

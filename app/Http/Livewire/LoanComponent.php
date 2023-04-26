@@ -21,7 +21,7 @@ class LoanComponent extends Component
     public $semester;
     public $group;
     public $return_date;
-
+    public $id_ticket;
 
     public function mount()
     {
@@ -35,6 +35,7 @@ class LoanComponent extends Component
         $this->semester = 0;
         $this->group = 0;
         $this->return_date = date('Y-m-d');
+        $this->id_ticket = '';
     }
     public function render()
     {
@@ -45,7 +46,9 @@ class LoanComponent extends Component
                 $this->emit('student-not-found', "ESTUDIANTE NO ENCONTRADO: " . $this->ncontrol);
                 //return;
             }
+            //dd($this->student);
         }
+
         return view(
             'livewire.loan.loan-component',
             []
@@ -73,6 +76,7 @@ class LoanComponent extends Component
             $this->emit('book-error', "Libro no encontrado");
             return;
         }
+        $book->quantity_loan = 1;
         /*$book1->id = 1;
         $book1 = new Book();
         $book1->barcode = "7501791610391";
@@ -95,12 +99,13 @@ class LoanComponent extends Component
         $book2->barcode = "3344";
 */
         if (!$this->bookExists($book->id)) {
-            $books['id' . $book->id] = $book->toArray();
-            $this->books =  $books;
+            $this->books['id' . $book->id] = $book->toArray();
+            //$this->books =  $books;
         } else {
             $this->incrementQty($book->id);
         }
         $this->barcode = '';
+        //dd($books);
     }
     public function incrementQty($id)
     {
@@ -135,7 +140,7 @@ class LoanComponent extends Component
             return;
         }
         //dd($this->semester . ' ' . $this->group . ' ' . $this->return_date);
-        if($this->return_date==Date('Y-m-d')){
+        if ($this->return_date == Date('Y-m-d')) {
             $this->emit('book-error', "Seleccione una fecha de devolución");
             return;
         }
@@ -143,8 +148,8 @@ class LoanComponent extends Component
             $this->emit('book-error', "Proporcione número de control");
             return;
         }
-        DB::beginTransaction();
         try {
+            DB::beginTransaction();
             //guardar prestamo
             $loan = Loan::create([
                 'semester' => $this->semester, 'group' => $this->group, 'return_date' => $this->return_date,
@@ -152,15 +157,15 @@ class LoanComponent extends Component
             ]);
             //guardar detalles_prestamo
             if ($loan) {
-                foreach($this->books as $b){
+                foreach ($this->books as $b) {
                     LoanDetail::create([
-                        'quantity'=>$b['quantity_loan'],
-                        'loan_id'=>$loan->id,
-                        'book_id'=>$b['id']
+                        'quantity' => $b['quantity_loan'],
+                        'loan_id' => $loan->id,
+                        'book_id' => $b['id']
                     ]);
                     //actualizar quantity de libros
                     $book = Book::find($b['id']);
-                    $book->quantity = $book->quantity-$b['quantity_loan'];
+                    $book->quantity = $book->quantity - $b['quantity_loan'];
                     $book->save();
                 }
                 DB::commit();
@@ -175,53 +180,6 @@ class LoanComponent extends Component
             DB::rollback();
             $this->emit('book-error', $e->getMessage());
         }
-        /*
-        try {
-            //guardar venta
-            $sale = Sale::create([
-                'total' => $this->total,
-                'items' => $this->itemsQuantity,
-                'cash' => $this->efectivo,
-                'status' => $this->status,
-                'change' => $this->change,
-                'user_id' => Auth()->user()->id,
-                'customer_id' => $this->customer //por defecto asignar el cliente a publico en general
-            ]);
-            if ($sale) {
-                //guardar detalles
-                $items = Cart::getcontent();
-                foreach ($items as $item) {
-                    SaleDetail::create([
-                        'price' => $item->price,
-                        'quantity' => $item->quantity,
-                        'product_id' => $item->id,
-                        'sale_id' => $sale->id
-                    ]);
-                    //actualizar stock
-                    $product = Product::find($item->id);
-                    $product->stock = $product->stock - $item->quantity;
-                    $product->save();
-                }
-            }
-            DB::commit();
-            // $this->clearCart();
-            Cart::clear();
-            $this->efectivo = 0;
-            $this->change = 0;
-            $this->total = Cart::getTotal();
-            $this->itemsQuantity = Cart::getTotalQuantity();
-
-            $this->emit('save-ok', "Préstamo registrado con éxito");
-
-            //imprimir utilizando impresora
-            $this->emit('print-ticket', $this->getJsonBase64($sale));
-
-            $this->books = [];
-
-        } catch (Exception $e) {
-            DB::rollback();
-            $this->emit('sale-error', $e->getMessage());
-        }*/
     }
     public function bookExists($id)
     {
@@ -254,23 +212,57 @@ class LoanComponent extends Component
     public function getJsonBase64(Loan $loan)
     {
         $details = LoanDetail::join('books as b', 'b.id', 'loan_details.book_id')
-            ->select('loan_details.quantity', 'b.name')
+            ->select('loan_details.quantity', 'b.title')
             ->where('loan_id', $loan->id)->get();
         //obtener el nombre del usuario
-        $loan->user = $loan->user->name;
-        //obtener el nombre del
-        // $loan->student_id = $loan->student->name;
-        $loan->student = $loan->student->name;
-        // $student = Student::find($loan->student_id);
-        $this->student->career =  $this->student->career->key;
-        $json = $loan->toJson() . '|' . $details->toJson() . '|' . $this->student->toJson();
+        // $loan->user = $loan->user->name;
+        $loan->user->created_at = null;
+        $loan->user->updated_at = null;
+
+        $loan->student->created_at = null;
+        $loan->student->updated_at = null;
+
+        $loan->updated_at = null;
+
+        $student = Student::find($loan->student_id);
+        // dd($student);
+        $keyCareer = $student->career->key;
+        $loan->student->key = $keyCareer;
+
+        $json = $loan->toJson() . '|' . $details->toJson(); // . '|' . $student->toJson();
         //codificar en base64
         $crypted = base64_encode(gzdeflate($json));
         return $crypted;
+        // return $json;
     }
     public function returnBooks()
     {
-        
+        if ($this->id_ticket == '') {
+            $this->emit('book-error', "Proporcione # ticket");
+            return;
+        }
+        $loan = Loan::find($this->id_ticket);
+        if ($loan) {
+            try {
+                DB::beginTransaction();
+                $loan->returned = true;
+                $loan->save();
+                foreach ($loan->loanDetails as $detail) {
+                    $book = Book::find($detail->book_id);
+                    $book->quantity = $book->quantity + $detail->quantity;
+                    $book->save();
+                }
+                DB::commit();
+                $this->emit('save-ok', "Préstamo devuelto con éxito");
+                //DB::rollback();
+                //$this->emit('book-error', "Error");
+            } catch (Exception $e) {
+                DB::rollback();
+                $this->emit('book-error', $e->getMessage());
+            }
+        } else {
+            $this->emit('book-error', "# ticket no encontrado");
+        }
     }
 }
 //https://styde.net/introduccion-a-la-clase-collection-de-laravel/
