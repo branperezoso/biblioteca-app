@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('ncontrol')->unique();
             $table->string('name');
+            $table->string('photo', 100)->nullable();
             $table->foreignId('career_id')->constrained('careers');
             $table->timestamps();
         });

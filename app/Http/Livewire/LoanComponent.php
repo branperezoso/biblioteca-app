@@ -242,6 +242,10 @@ class LoanComponent extends Component
             return;
         }
         $loan = Loan::find($this->ticket_id);
+        if ($loan->returned) {
+            $this->emit('book-error', "El préstamo ya ha sido devuelto");
+            return;
+        }
         if ($loan) {
             try {
                 DB::beginTransaction();
@@ -263,6 +267,7 @@ class LoanComponent extends Component
         } else {
             $this->emit('book-error', "# ticket no encontrado");
         }
+        $this->ticket_id = '';
     }
 }
 //https://styde.net/introduccion-a-la-clase-collection-de-laravel/

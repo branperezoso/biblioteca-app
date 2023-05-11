@@ -18,5 +18,6 @@ class Book extends Model
         'comment',
         'quantity',
         'origin',
+        'photo',
     ];
 }

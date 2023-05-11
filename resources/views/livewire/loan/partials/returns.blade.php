@@ -12,7 +12,7 @@
             <div class="row">
                 {{-- numero de ticket --}}
                 <div class="col-sm-12 col-md-2">
-                    <input id="id_ticket" type="text" class="form-control" wire:model.lazy='id_ticket'
+                    <input id="ticket_id" type="text" class="form-control" wire:model.lazy='ticket_id'
                         placeholder="# ticket">
                 </div>
 

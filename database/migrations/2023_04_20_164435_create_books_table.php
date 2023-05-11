@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('comment', 200)->nullable();
             $table->unsignedSmallInteger('quantity');
             $table->string('origin', 100)->nullable();
+            $table->string('photo', 100)->nullable();
             $table->timestamps();
         });
     }

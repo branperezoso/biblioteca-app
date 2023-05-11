@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('loans', function (Blueprint $table) {
-            $table->boolean('returned')->default(false);
+            $table->boolean('returned')->default(false)->after('return_date');
         });
     }
 

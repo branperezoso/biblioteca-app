@@ -12,6 +12,7 @@ class Student extends Model
         'ncontrol',
         'name',
         'career_id',
+        'photo',
     ];
     public function loans()
     {
