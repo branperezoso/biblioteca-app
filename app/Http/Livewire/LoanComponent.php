@@ -39,7 +39,18 @@ class LoanComponent extends Component
     }
     public function render()
     {
-        if ($this->ncontrol != '' && !$this->student) {
+        $this->searchStudent();
+
+        return view(
+            'livewire.loan.loan-component',
+            []
+        )->extends('layouts.app')->section('content');
+        // return view('livewire.loan-component');
+    }
+    public function searchStudent()
+    {
+        // if ($this->ncontrol != '' && !$this->student) {
+        if ($this->ncontrol != '') {
             //buscar el estudiante y asignamrlo a $this->student
             $this->student = Student::where('ncontrol', $this->ncontrol)->first();
             if (!$this->student) {
@@ -48,13 +59,8 @@ class LoanComponent extends Component
             }
             //dd($this->student);
         }
-
-        return view(
-            'livewire.loan.loan-component',
-            []
-        )->extends('layouts.app')->section('content');
-        // return view('livewire.loan-component');
     }
+
     public function delete($id)
     {
         //$newbook2 = null;
@@ -131,6 +137,10 @@ class LoanComponent extends Component
     }
     public function saveLoan()
     {
+        if ($this->ncontrol == '') {
+            $this->emit('book-error', "Proporcione número de control");
+            return;
+        }
         if ($this->semester == 0) {
             $this->emit('book-error', "Seleccione un grado");
             return;
@@ -142,10 +152,6 @@ class LoanComponent extends Component
         //dd($this->semester . ' ' . $this->group . ' ' . $this->return_date);
         if ($this->return_date == Date('Y-m-d')) {
             $this->emit('book-error', "Seleccione una fecha de devolución");
-            return;
-        }
-        if ($this->ncontrol == '') {
-            $this->emit('book-error', "Proporcione número de control");
             return;
         }
         try {
@@ -238,7 +244,7 @@ class LoanComponent extends Component
     public function returnBooks()
     {
         if ($this->ticket_id == '') {
-            $this->emit('book-error', "Proporcione # ticket");
+            $this->emit('book-error', "Proporcione # préstamo");
             return;
         }
         $loan = Loan::find($this->ticket_id);
