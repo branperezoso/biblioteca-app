@@ -50,8 +50,8 @@
                                     href="{{ route('prestamos') }}">Préstamo</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link {{ request()->is('books.index') ? 'border border-success rounded-pill active' : '' }} "
-                                    href="{{ route('books.index') }}">Libros</a>
+                                <a class="nav-link {{ request()->is('books') ? 'border border-success rounded-pill active' : '' }} "
+                                    href="{{ route('books') }}">Libros</a>
                             </li>
                             <li class="nav-item">
                                 {{-- <a class="nav-link" href="{{ route('prestamos') }}">Devolución</a> --}}
