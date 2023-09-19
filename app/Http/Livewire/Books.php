@@ -48,26 +48,6 @@ class Books extends Component
         $this->photo = $book->photo;
     }
 
-    public function update($id)
-    {
-        $book = Book::find($id);
-
-        $book->update([
-            'barcode' => $this->barcode,
-            'title' => $this->title,
-            'author' => $this->author,
-            'edition' => $this->edition,
-            'area' => $this->area,
-            'publishing_house' => $this->publishing_house,
-            'comment' => $this->comment,
-            'quantity' => $this->quantity,
-            'origin' => $this->origin,
-            'photo' => $this->photo,
-        ]);
-
-        $this->resetInput();
-    }
-
     public function delete($id)
     {
         Book::find($id)->delete();
