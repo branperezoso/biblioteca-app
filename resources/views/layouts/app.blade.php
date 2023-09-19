@@ -25,7 +25,7 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <a class="navbar-brand" href="">
                     {{ config('app.name', 'Laravel') }}
                 </a>
                 <ul class="navbar-nav ms-auto">
