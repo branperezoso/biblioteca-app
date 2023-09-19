@@ -64,20 +64,18 @@
                     <li>
                         <div class="dropdown-menu-button"><i class="zmdi zmdi-assignment-o zmdi-hc-fw"></i>&nbsp;&nbsp; Libros y catálogo <i class="zmdi zmdi-chevron-down pull-right zmdi-hc-fw"></i></div>
                         <ul class="list-unstyled">
-                            <li><a href="insertar_libro.php"><i class="zmdi zmdi-book zmdi-hc-fw"></i>&nbsp;&nbsp; Nuevo libro</a></li>
+                            <li><a href="{{ route('book') }}"><i class="zmdi zmdi-book zmdi-hc-fw"></i>&nbsp;&nbsp; Nuevo libro</a></li>
                             <li><a href="catalogo.php"><i class="zmdi zmdi-bookmark-outline zmdi-hc-fw"></i>&nbsp;&nbsp; Catálogo</a></li>
                         </ul>
                     </li>
                     <li>
-                        @auth
+                      
 
                             <li>
                                 <a href="{{ route('prestamos') }}"><i class="zmdi zmdi-alarm zmdi-hc-fw"></i>&nbsp;&nbsp;Préstamo</a>
                             </li>
-                            <li class="nav-item">
-                                {{-- <a class="nav-link" href="{{ route('prestamos') }}">Devolución</a> --}}
-                            </li>
-                        @endauth
+                           
+                        
                     </li>
                     <li><a href="reportes.php"><i class="zmdi zmdi-trending-up zmdi-hc-fw"></i>&nbsp;&nbsp; Reportes y estadísticas</a></li>
                     
