@@ -8,6 +8,17 @@ use App\Models\Book;
 class Books extends Component
 {
     public $books;
+    public $barcode;
+    public $title;
+    public $author;
+    public $edition;
+    public $area;
+    public $publishing_house;
+    public $comment;
+    public $quantity;
+    public $origin;
+    public $photo;
+    public $view = 'list'; // Variable para controlar la vista principal
 
     public function mount()
     {
@@ -16,7 +27,8 @@ class Books extends Component
 
     public function create()
     {
-        $this->books->create([
+        $this->view = 'create';
+        Book::create([
             'barcode' => $this->barcode,
             'title' => $this->title,
             'author' => $this->author,
@@ -29,12 +41,12 @@ class Books extends Component
             'photo' => $this->photo,
         ]);
 
-        $this->resetInput();
+        $this->resetInput();   
     }
 
     public function edit($id)
     {
-        $book = Book::find($id);
+        $this->view = 'edit';
 
         $this->barcode = $book->barcode;
         $this->title = $book->title;
@@ -50,8 +62,15 @@ class Books extends Component
 
     public function delete($id)
     {
+        $this->view = 'list'; // Puedes cambiar la vista principal a 'list' después de eliminar
         Book::find($id)->delete();
-
         $this->books = Book::all();
+    }
+
+    public function render()
+    {
+        return view('livewire.book.books', [
+            'view' => $this->view, // Pasa la variable de vista principal a la vista
+        ]);
     }
 }
