@@ -40,11 +40,18 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     @auth
-
                         <ul class="navbar-nav me-auto">
+                            <li class="nav-item">
+                                <a class="nav-link {{ request()->is('/home') ? 'border border-success rounded-pill active' : '' }} "
+                                    href="{{ url('/home') }}">Inicio</a>
+                            </li>
                             <li class="nav-item">
                                 <a class="nav-link {{ request()->is('prestamos') ? 'border border-success rounded-pill active' : '' }} "
                                     href="{{ route('prestamos') }}">Préstamo</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {{ request()->is('books.index') ? 'border border-success rounded-pill active' : '' }} "
+                                    href="{{ route('books.index') }}">Libros</a>
                             </li>
                             <li class="nav-item">
                                 {{-- <a class="nav-link" href="{{ route('prestamos') }}">Devolución</a> --}}
