@@ -11,9 +11,7 @@
 
     <!-- Contenido principal de la página -->
     <div class="content">
-        @if($view === 'list')
-            @include('livewire.book.partials.list') <!-- Vista parcial de lista de libros -->
-        @elseif($view === 'create')
+        @if($view === 'create')
             @include('livewire.book.partials.create') <!-- Vista parcial de creación de libro -->
         @elseif($view === 'edit')
             @include('livewire.book.partials.edit') <!-- Vista parcial de edición de libro -->
