@@ -141,13 +141,15 @@ class LoanComponent extends Component
             $this->emit('book-error', "Proporcione número de control");
             return;
         }
-        if ($this->semester == 0) {
-            $this->emit('book-error', "Seleccione un grado");
-            return;
-        }
-        if ($this->group == 0) {
-            $this->emit('book-error', "Seleccione un grupo");
-            return;
+        if (!(strlen($this->ncontrol) >= 2 && strlen($this->ncontrol) <= 4)) {
+            if ($this->semester == 0) {
+                $this->emit('book-error', "Seleccione un grado");
+                return;
+            }
+            if ($this->group == 0) {
+                $this->emit('book-error', "Seleccione un grupo");
+                return;
+            }
         }
         //dd($this->semester . ' ' . $this->group . ' ' . $this->return_date);
         if ($this->return_date == Date('Y-m-d')) {
