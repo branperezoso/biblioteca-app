@@ -16,11 +16,11 @@
   <body class="full-cover-background" style="background-image:url(assets/img/font-login.png);">
     <div class="main">
       <div class="container a-container" id="a-container">
-        <form class="form" id="a-form" method="post">
+        <form class="form" id="a-form" method="post" action="{{ route('login') }}">
         <h2 class="form_title title">Acceso</h2>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route('login') }}">
+                        
                             @csrf
 
                             <div class="row mb-3">
@@ -83,17 +83,17 @@
                                     @endif --}}
                                 </div>
                             </div>
-                        </form>
+                       
                    
                     </div>
                     </form>
 
                 </div>
       <div class="container b-container" id="b-container">
-        <form class="form" id="b-form" method="post">
+        <form class="form" id="b-form" method="post" action="{{ route('register') }}">
           <h2 class="form_title title">Crear Cuenta</h2>
           <div class="card-body">
-                        <form method="POST" action="{{ route('register') }}">
+                        
                             @csrf
 
                             <div class="row mb-3">
@@ -163,7 +163,7 @@
                                     </button>
                                 </div>
                             </div>
-                        </form>
+                       
                     </div>
           
         </form>
