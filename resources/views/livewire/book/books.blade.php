@@ -1,9 +1,5 @@
-            {{-- resources/views/livewire/book/books.blade.php --}}
-    <div>
-        <h1>Libros</h1>
-        <!-- Contenido principal de la página -->
-        <div class="content">
-                
+<div class="container">
+    <div class="row justify-content-center">
                     @include('livewire.book.partials.create') <!-- Vista parcial de creación de libro -->
                 
                     @include('livewire.book.partials.edit') <!-- Vista parcial de edición de libro -->
