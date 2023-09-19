@@ -9,13 +9,13 @@
                 {{-- Columna lateral para acciones de libros --}}
                 @if($currentAction == 'create')
                     {{-- Mostrar la vista parcial para crear un libro --}}
-                    @include('livewire.books.create')
+                    @include('livewire.books.partials.create')
                 @elseif($currentAction == 'edit')
                     {{-- Mostrar la vista parcial para editar un libro --}}
-                    @include('livewire.books.edit')
+                    @include('livewire.books.partials.edit')
                 @elseif($currentAction == 'delete')
                     {{-- Mostrar la vista parcial para eliminar un libro --}}
-                    @include('livewire.books.delete')
+                    @include('livewire.books.partials.delete')
                 @else
                     {{-- Por defecto, no se muestra ninguna vista parcial --}}
                 @endif
