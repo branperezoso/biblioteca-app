@@ -2,7 +2,7 @@
 
 use App\Http\Livewire\LoanComponent;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Livewire\Books;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,3 +23,5 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('prestamos', LoanComponent::class)->name('prestamos')->middleware('auth');
+
+Route::get('books', Books::class)->name('books.index')->middleware('auth');
