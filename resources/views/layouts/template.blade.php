@@ -17,7 +17,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
-        <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="css/fontawesome.css">
         <link rel="stylesheet" href="css/templatemo-onix-digital.css">
         <link rel="stylesheet" href="css/animated.css">
@@ -135,8 +135,8 @@
                 </div>
             </div>
         </footer>
-        <script src="vendor/jquery/jquery.min.js"></script>
-        <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="jquery/jquery.min.js"></script>
+        <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
         <script src="js/owl-carousel.js"></script>
         <script src="js/animation.js"></script>
         <script src="js/imagesloaded.js"></script>
