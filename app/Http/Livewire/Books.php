@@ -71,6 +71,6 @@ class Books extends Component
     {
         return view('livewire.book.books', [
             'view' => $this->view, // Pasa la variable de vista principal a la vista
-        ]);
+        ])->extends('layouts.app')->section('content');
     }
 }

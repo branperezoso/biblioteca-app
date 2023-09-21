@@ -46,7 +46,7 @@
             </div>
             <div class="full-reset nav-lateral-list-menu">
                 <ul class="list-unstyled">
-                    <li><a href="inicio_admin.php"><i class="zmdi zmdi-home zmdi-hc-fw"></i>&nbsp;&nbsp; Inicio </a></li>
+                    <li><a href="{{ route('home') }}"><i class="zmdi zmdi-home zmdi-hc-fw"></i>&nbsp;&nbsp; Inicio </a></li>
                     <li>
                     <a href="admin.php">
                         <i class="zmdi zmdi-case zmdi-hc-fw"></i>&nbsp;&nbsp; Administración
@@ -132,7 +132,7 @@
             </article>
     
             <article class="tile">
-            <a href="catalogo.php">
+            <a href="{{ route('books') }}">
                 <div class="tile-icon full-reset"><i class="zmdi zmdi-book"></i></div>
                 <div class="tile-name all-tittles" style="color#058D4C;">libros</div>
                 <div class="tile-num full-reset" style="color:#058D4C;">5</div>
@@ -155,7 +155,7 @@
             </article>
 
             <article class="tile">
-            <a href="prestamos.php">
+            <a href="{{ route('prestamos') }}">
                 <div class="tile-icon full-reset"><i class="zmdi zmdi-calendar"></i></div>
                 <div class="tile-name all-tittles" style="color:#058D4C;">préstamos</div>
                 <div class="tile-num full-reset" style="color:#058D4C;">6</div>

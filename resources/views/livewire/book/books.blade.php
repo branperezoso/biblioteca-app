@@ -47,15 +47,8 @@
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="float-right">
-                <button wire:click="create()">Crear libro</button>
-            </div>
-        </div>
-    </div>
     
-    
+
     @include('livewire.book.partials.create')
     @include('livewire.book.partials.edit')
 </div>
