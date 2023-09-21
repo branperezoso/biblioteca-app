@@ -870,7 +870,7 @@ Banner Style
 
 .main-banner:after {
   content: '';
-  background-image: url(../images/baner-dec-left.png);
+  background-image: url("../assets/img/baner-dec-left.png");
   background-repeat: no-repeat;
   position: absolute;
   left: 0;
@@ -881,7 +881,7 @@ Banner Style
 
 .main-banner:before {
   content: '';
-  background-image: url(assets/img/font-login.jpg);
+  background-image: url("../assets/img/banner-right-image.png");
   background-repeat: no-repeat;
   background-size: cover;
   position: absolute;

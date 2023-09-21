@@ -13,11 +13,9 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
-
-    <!-- Scripts -->
+   <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     <link rel="stylesheet" href="css/snackbar.min.css">
-
     @livewireStyles
 </head>
 
@@ -98,10 +96,6 @@
                 </div>
             </div>
         </nav>
-
-        <main class="py-4">
-            @yield('content')
-        </main>
     </div>
     <script src="js/jquery-3.6.3.js"></script>
     <script src="js/snackbar.min.js"></script>
